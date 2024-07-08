@@ -1,6 +1,26 @@
 <!DOCTYPE html>
 <html lang="en-us">
   <head>
+     <script type="text/javascript">
+       document.addEventListener('visibilitychange', function () {
+            if (document.hidden) {
+                // The page is hidden, send a message to Unity to pause the music
+                gameInstance.SendMessage('SoundManager', 'PauseMusic');
+            } else {
+                // The page is visible again, send a message to Unity to resume the music
+                gameInstance.SendMessage('SoundManager', 'ResumeMusic');
+            }
+        });
+     </script>
+    <!-- GA -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-0NJG8J61L2"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-0NJG8J61L2');
+    </script>
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>Unity WebGL Player | Zupee Ludo</title>
@@ -8,6 +28,19 @@
     <link rel="stylesheet" href="TemplateData/style.css">
   </head>
   <body>
+     <script>
+
+        function startedChallenge(eventName) {
+
+            gtag('event', eventName, {
+                'game_name': 'ZupeeLudo'
+            });
+        }
+
+        if (location.protocol.substr(0, 4) === "file") {
+            alert("Web exports won't work until you upload them. (When running on the file: protocol, browsers block many features from working for security reasons.)");
+        }
+     </script>
     <div id="unity-container" class="unity-desktop">
       <canvas id="unity-canvas" width=960 height=600></canvas>
       <div id="unity-loading-bar">
@@ -103,6 +136,7 @@
         createUnityInstance(canvas, config, (progress) => {
           progressBarFull.style.width = 100 * progress + "%";
         }).then((unityInstance) => {
+          gameInstance = unityInstance;
           loadingBar.style.display = "none";
           fullscreenButton.onclick = () => {
             unityInstance.SetFullscreen(1);
