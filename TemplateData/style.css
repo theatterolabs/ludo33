@@ -4,9 +4,9 @@
 }
 
 body { 
-  backgrouns-color: black;
+  background-color: black;
    padding: 0; 
-  margin: 0 
+  margin: 0; 
 }
 #unity-container { position: absolute }
 #unity-container.unity-desktop { left: 50%; top: 50%; transform: translate(-50%, -50%) }
